@@ -1,4 +1,6 @@
-import {HomePage, TripPage, BookingDetailsPage, Payment, LoginPage, RegisterPage, TicketDetailPage, TicketHistoryPage } from '@/pages';
+import { HomePage, TripPage, BookingDetailsPage, Payment, LoginPage, RegisterPage, TicketDetailPage, TicketHistoryPage} from '@/pages';
+
+
 
 const appRoute = {
 	home: {
@@ -20,12 +22,13 @@ const appRoute = {
 	ticketDetail: {
 		path: '/ticket/detail',
 		component: TicketDetailPage,
-	  },
-	  ticketHistory: {
+	},
+	ticketHistory: {
 		path: '/ticket/history',
 		component: TicketHistoryPage,
-	  },
-}
+	},
+	
+};
 
 const authRoute = {
 	login: {
@@ -35,10 +38,10 @@ const authRoute = {
 	register: {
 		path: '/register',
 		component: RegisterPage,
-	}
-}
+	},
+};
 
 export {
 	appRoute,
-	authRoute
+	authRoute,
 };

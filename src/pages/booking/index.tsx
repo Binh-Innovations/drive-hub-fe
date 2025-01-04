@@ -1,7 +1,7 @@
 import { Box, VStack, Text } from '@chakra-ui/react';
 import TripSummary from './components/TripSummary';
-// import ContactDetails from './components/ContactDetails';
-import PassengersDetails from './components/PassengersDetails';
+import Sum from './components/Sum';
+import SelectSeat from './components/SelectSeat';
 import { PrimaryButton } from '@/components';
 
 const BookingDetails = () => {
@@ -50,14 +50,15 @@ const BookingDetails = () => {
                     <TripSummary />
                 </Box>
 
-                {/* Contact Details Section */}
-                {/* <Box borderWidth="1px" borderRadius="lg" p={6} bg="gray.50" boxShadow="sm">
-                    <ContactDetails />
-                </Box> */}
+               
 
 
                 <Box borderWidth="1px" borderRadius="lg" p={6} bg="gray.50" boxShadow="sm">
-                    <PassengersDetails />
+                    <SelectSeat />
+                </Box>
+                 Contact Details Section 
+                 <Box borderWidth="1px" borderRadius="lg" p={1} bg="gray.50" boxShadow="sm">
+                    <Sum />
                 </Box>
 
                 <PrimaryButton

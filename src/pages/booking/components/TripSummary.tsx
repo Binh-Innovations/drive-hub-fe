@@ -58,7 +58,7 @@ export default function TripSummary() {
             {/* Tổng cộng Section */}
             <Flex justifyContent="space-between" alignItems="center" mb={4}>
                 <VStack align="start" spacing={1}>
-                    <Text fontWeight="bold" fontSize="lg">Tổng Cộng</Text>
+                    <Text fontWeight="bold" fontSize="lg">Giá vé</Text>
                     <Text fontSize="2xl" fontWeight="bold" color="purple.600">100.000 VND</Text>
                 </VStack>
             </Flex>
