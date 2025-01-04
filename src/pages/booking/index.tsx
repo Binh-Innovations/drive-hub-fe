@@ -1,10 +1,42 @@
-import { Box, VStack, Text } from '@chakra-ui/react';
-import TripSummary from './components/TripSummary';
-import Sum from './components/Sum';
-import SelectSeat from './components/SelectSeat';
-import { PrimaryButton } from '@/components';
+/* eslint-disable */
 
+import serviceTicket from '@/apis/service/ticket';
+import { IGetAllTicketAvailable } from '@/apis/service/type.response';
+import { PrimaryButton } from '@/components';
+import { TRIP_ID } from '@/constants/data';
+import { ArrowBackIcon } from '@chakra-ui/icons';
+import { Box, Flex, Icon, Text, VStack } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import SelectSeat from './components/SelectSeat';
+import Sum from './components/Sum';
+import TripSummary from './components/TripSummary';
 const BookingDetails = () => {
+    const tripId = Number(localStorage.getItem(TRIP_ID))
+    // console.log('tripId line 10----', tripId )
+    
+    // const navigate = useNavigate()
+    const [listSeats, setListSeats] = useState<IGetAllTicketAvailable[]>([])
+
+    useEffect(()=> {
+        if(tripId) {
+            const handle =async  ()=> {
+                const response = await serviceTicket.getAllAvailableTicket(Number(tripId))
+                // console.log('response line 17------', response )
+                setListSeats(response.listSeat)
+            }
+            handle()
+        }
+    }, [tripId])
+    // console.log(listSeats)
+    const handleBack = ()=> {
+        localStorage.removeItem(TRIP_ID)
+        // Navigate
+        // navigate('/trip')
+        window.history.back()
+    }
+
+
+    
     return (
         <Box
             maxW="1000px"
@@ -21,7 +53,7 @@ const BookingDetails = () => {
             boxShadow="lg"
         >
             {/* Tiêu đề lớn ở đầu trang */}
-            <Text
+            {/* <Text
                 fontSize={{
                     base: 'xl',
                     md: '2xl',
@@ -33,7 +65,37 @@ const BookingDetails = () => {
                 color="gray.700"
             >
                 Chi Tiết Thông Tin Đặt Vé
-            </Text>
+            </Text> */}
+
+<Flex
+        align="center"
+        justify="center"
+        mb={8}
+        textAlign="center"
+        color="gray.700"
+      >
+        <Icon
+          as={ArrowBackIcon}
+          w={6}
+          h={6}
+          mr={4}
+          cursor="pointer"
+          onClick={handleBack} // Quay lại trang trước
+        />
+        <Text
+          fontSize={{
+            base: 'xl',
+            md: '2xl',
+            xl: '3xl'
+          }}
+          fontWeight="bold"
+        >
+          Chi Tiết Thông Tin Đặt Vé
+        </Text>
+      </Flex>
+
+
+
 
             <VStack spacing={8} align="stretch">
                 {/* Trip Summary Section */}
@@ -54,7 +116,7 @@ const BookingDetails = () => {
 
 
                 <Box borderWidth="1px" borderRadius="lg" p={6} bg="gray.50" boxShadow="sm">
-                    <SelectSeat />
+                    <SelectSeat  listSeats={listSeats}/>
                 </Box>
                  Contact Details Section 
                  <Box borderWidth="1px" borderRadius="lg" p={1} bg="gray.50" boxShadow="sm">

@@ -1,7 +1,10 @@
+/* eslint-disable */
+
 import React, { useState } from 'react';
 import { Box, Text } from '@chakra-ui/react';
 
 const SelectSeatPage: React.FC = () => {
+  //@ts-ignore
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
   return (

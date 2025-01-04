@@ -97,7 +97,7 @@ export default function SearchTrip({
           startTime.toString(),
           endTime.toString()
         );
-        console.log('response-----', response )
+        // console.log('response-----', response )
         onSearch(response);
         navigate(
           `/trip?from=${startStationId}&to=${endStationId}&date=${dateValue}`

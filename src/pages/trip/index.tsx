@@ -46,6 +46,8 @@ export default function Trip() {
   const [currentPage, setCurrentPage] = useState<number>(0);
   // const [perPage, setPerPage] = useState<number>(0);
   // const navigate = useNavigate();
+  
+
 
   useEffect(() => {
     if (from && to && date) {
@@ -57,6 +59,7 @@ export default function Trip() {
     }
   }, [from, to, date]);
 
+  //@ts-ignore
   const handleSearchWithParams = async (searchParams: any) => {
     // console.log(searchParams)
   };

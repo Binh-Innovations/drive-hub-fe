@@ -1,5 +1,7 @@
 export const JWT_LOCAL_STORAGE_KEY = 'drive-hub-fe-jwt-token'
 
+
+export const TRIP_ID = 'tripId'
 export const LIST_HEADER_MENU = [
     {
         label: "Trips",

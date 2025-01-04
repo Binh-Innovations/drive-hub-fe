@@ -1,14 +1,23 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { PrimaryButton } from '@/components';
 import { FaCarSide } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
+import { TRIP_ID } from '@/constants/data';
 
-export default function TripItem({item  }:{item: any}) {
+export default function TripItem({ item }: { item: any }) {
 
-    console.log("TripItem props:", item);
+    // console.log("TripItem props:", item);
+    const navigate = useNavigate()
 
 
 
+    const handleClick = () => {
+        
+        localStorage.setItem(TRIP_ID, (1).toString())
+        
+        navigate('/booking')
 
+    }
     return (
         <Box
             backgroundColor={'white'}
@@ -73,7 +82,7 @@ export default function TripItem({item  }:{item: any}) {
                             </Text>
                             <Text variant={'body-tiny'}>
 
-                            {item.endStation.name ?? ''}
+                                {item.endStation.name ?? ''}
                             </Text>
                         </Box>
                     </Flex>
@@ -92,7 +101,7 @@ export default function TripItem({item  }:{item: any}) {
                     <Text variant={'body-extra-large-bold'}>
                         100.000đ
                     </Text>
-                    <PrimaryButton>
+                    <PrimaryButton onClick={handleClick}>
                         Đặt ngay
                     </PrimaryButton>
                 </Flex>

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { Button, Card, Tooltip, Space, Badge, Flex } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Box, Text } from '@chakra-ui/react';
-import { PrimaryButton } from '@/components';
-import { useNavigate } from 'react-router-dom';
+import { Badge, Button, Card, Space, Tooltip } from 'antd';
+import React, { useState } from 'react';
+// import { PrimaryButton } from '@/components';
+import { IGetAllTicketAvailable } from '@/apis/service/type.response';
 
 type Seat = {
   code: string;
@@ -16,26 +16,44 @@ type LegendItem = {
   color: string;
 };
 
-const SelectSeatPage: React.FC = () => {
-  const navigate = useNavigate();
-  const [seats, setSeats] = useState<Seat[]>([
-    { code: 'A1', status: 'available' },
-    { code: 'A2', status: 'available' },
-    { code: 'A3', status: 'booked' },
-    { code: 'A4', status: 'available' },
-    { code: 'B1', status: 'available' },
-    { code: 'B2', status: 'active' },
-    { code: 'B3', status: 'available' },
-    { code: 'B4', status: 'booked' },
-    { code: 'C1', status: 'available' },
-    { code: 'C2', status: 'available' },
-    { code: 'C3', status: 'booked' },
-    { code: 'C4', status: 'available' },
-    { code: 'D1', status: 'available' },
-    { code: 'D2', status: 'available' },
-    { code: 'D3', status: 'available' },
-    { code: 'D4', status: 'booked' },
-  ]);
+
+// type listSeats
+const SelectSeatPage: React.FC<{ listSeats: IGetAllTicketAvailable[] }> = ({ listSeats }) => {
+
+  // const navigate = useNavigate();
+  // console.log('listSeats ben prop----', listSeats)
+
+
+
+  // const [seats, setSeats] = useState<Seat[]>([
+  //   { code: 'A1', status: 'available' },
+  //   { code: 'A2', status: 'available' },
+  //   { code: 'A3', status: 'booked' },
+  //   { code: 'A4', status: 'available' },
+  //   { code: 'B1', status: 'available' },
+  //   { code: 'B2', status: 'active' },
+  //   { code: 'B3', status: 'available' },
+  //   { code: 'B4', status: 'booked' },
+  //   { code: 'C1', status: 'available' },
+  //   { code: 'C2', status: 'available' },
+  //   { code: 'C3', status: 'booked' },
+  //   { code: 'C4', status: 'available' },
+  //   { code: 'D1', status: 'available' },
+  //   { code: 'D2', status: 'available' },
+  //   { code: 'D3', status: 'available' },
+  //   { code: 'D4', status: 'booked' },
+  // ]);
+
+  //@ts-ignore
+  const seats: Seat[] = listSeats.map((item: IGetAllTicketAvailable)=> {
+    return {
+      code: item.seat.seatCode,
+      status: item.status,
+    };
+  })
+
+
+  
 
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
 
@@ -55,13 +73,13 @@ const SelectSeatPage: React.FC = () => {
     }
   };
 
-  const handleContinue = () => {
-    if (selectedSeats.length > 0) {
-      navigate('/booking');
-    } else {
-      alert('Vui lòng chọn ít nhất một ghế');
-    }
-  };
+  // const handleContinue = () => {
+  //   if (selectedSeats.length > 0) {
+  //     navigate('/booking');
+  //   } else {
+  //     alert('Vui lòng chọn ít nhất một ghế');
+  //   }
+  // };
 
   return (
     <Box maxW="1200px" mx="auto" mt="10" p="6">
