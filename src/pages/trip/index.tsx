@@ -58,7 +58,7 @@ export default function Trip() {
   }, [from, to, date]);
 
   const handleSearchWithParams = async (searchParams: any) => {
-    console.log(searchParams)
+    // console.log(searchParams)
   };
   const handleSearchResults = (data: any) => {
     // Xử lý dữ liệu nhận được từ component con

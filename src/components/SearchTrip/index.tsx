@@ -50,6 +50,7 @@ export default function SearchTrip({
     };
     fetchStations();
   }, []);
+  // console.log('stations line 53-----', setations )
 
   useEffect(() => {
     const today = moment().format("DD/MM/YYYY");
@@ -96,6 +97,7 @@ export default function SearchTrip({
           startTime.toString(),
           endTime.toString()
         );
+        console.log('response-----', response )
         onSearch(response);
         navigate(
           `/trip?from=${startStationId}&to=${endStationId}&date=${dateValue}`

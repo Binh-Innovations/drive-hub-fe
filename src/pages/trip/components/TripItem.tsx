@@ -3,6 +3,12 @@ import { PrimaryButton } from '@/components';
 import { FaCarSide } from "react-icons/fa";
 
 export default function TripItem({item  }:{item: any}) {
+
+    console.log("TripItem props:", item);
+
+
+
+
     return (
         <Box
             backgroundColor={'white'}
