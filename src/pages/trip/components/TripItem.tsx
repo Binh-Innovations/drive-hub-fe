@@ -3,8 +3,20 @@ import {PrimaryButton} from '@/components';
 import {FaCarSide} from "react-icons/fa";
 import moment from "moment";
 import {getTimeDiff} from "@/utils";
+import {useNavigate} from "react-router-dom";
+import {VEHICLE_TYPES} from "@/constants/data.ts";
 
-export default function TripItem({item}: { item: any }) {
+export default function TripItem({ item }: { item: any }) {
+    const navigate = useNavigate();
+    const handleClick = () => {
+        navigate('/booking/' + item.id);
+    }
+
+    const vehicleText =
+        VEHICLE_TYPES.find((type) => type.value === item?.vehicle?.vehicleType)?.label +
+        ' ' +
+        (item?.vehicle?.seatColumns * item?.vehicle?.seatRows) +
+        ' chỗ';
     return (
         <Box
             backgroundColor={'white'}
@@ -19,10 +31,7 @@ export default function TripItem({item}: { item: any }) {
         >
             <Flex
                 gap={3}
-                flexDirection={{
-                    base: 'column',
-                    sm: 'row'
-                }}>
+                flexDirection={'column'}>
                 <Box
                     width={'100%'}
                     bgColor={'secondary.50'}
@@ -41,16 +50,23 @@ export default function TripItem({item}: { item: any }) {
                         <Flex
                             flexDirection={'column'}
                             alignItems={'flex-start'}
+                            width={'35%'}
                         >
                             <Text variant={'body-large-bold'}>
                                 {moment(item?.departureTime).format('HH:mm') ?? ''}
                             </Text>
                             <Text variant={'body-tiny'}>
-
                                 {item?.route?.startStation?.name ?? ''}
                             </Text>
+
+                            <Text variant={'body-tiny'}>
+                                {item?.route?.startStation?.address ?? ''}
+                            </Text>
                         </Flex>
-                        <Box>
+                        <Box
+                            width={'30%'}
+                            textAlign={'center'}
+                        >
                             <Text variant={'body-small-bold'} padding={'0 20px'}>
                                 {getTimeDiff(item?.departureTime, item?.arrivalTime)}
                             </Text>
@@ -71,10 +87,14 @@ export default function TripItem({item}: { item: any }) {
                                     bgColor={'gray.300'}
                                 />
                             </Flex>
+                            <Text variant={'body-tiny'}>
+                                {vehicleText}
+                            </Text>
                         </Box>
                         <Flex
                             flexDirection={'column'}
                             alignItems={'flex-end'}
+                            width={'35%'}
                         >
                             <Text variant={'body-large-bold'}>
                                 {moment(item?.arrivalTime).format('HH:mm') ?? ''}
@@ -82,42 +102,25 @@ export default function TripItem({item}: { item: any }) {
                             <Text variant={'body-tiny'}>
                                 {item?.route?.endStation.name ?? ''}
                             </Text>
+                            <Text variant={'body-tiny'}>
+                                {item?.route?.endStation.address ?? ''}
+                            </Text>
                         </Flex>
                     </Flex>
                 </Box>
-                <Flex
-                    flexDirection={{
-                        base: 'row',
-                        sm: 'column'
-                    }}
-                    justifyContent={{
-                        base: 'space-between',
-                        sm: 'space-evenly'
-                    }}
-                    alignItems={'center'}
-                >
-                    <Text variant={'body-extra-large-bold'}>
-                        100.000đ
-                    </Text>
-                    <PrimaryButton>
-                        Đặt ngay
-                    </PrimaryButton>
-                </Flex>
             </Flex>
-            <Flex mt={5} justifyContent={'space-between'}>
-                <Text variant={'body-small'}>
-                    10 chỗ trống
+            <Flex
+                mt={5}
+                flexDirection={'row'}
+                justifyContent={'space-between'}
+                alignItems={'center'}
+            >
+                <Text variant={'body-extra-large-bold'}>
+                    {item?.price.toLocaleString('vi-VN')} VND
                 </Text>
-                <Text color='orange' variant={'body-small'}>
-                    Partially refundable
-                </Text>
-                <Text
-                    variant={'body-small-bold'}
-                    color='primary.600'
-                    cursor={'pointer'}
-                >
-                    Xem chi tiết
-                </Text>
+                <PrimaryButton onClick={handleClick}>
+                    Đặt ngay
+                </PrimaryButton>
             </Flex>
         </Box>
     )

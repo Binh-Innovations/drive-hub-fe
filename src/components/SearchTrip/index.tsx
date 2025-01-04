@@ -1,5 +1,3 @@
-// import { Grid, GridItem, Input, Box, Select, Icon, FormControl, FormLabel } from '@chakra-ui/react';
-// import { IoIosSearch, IoIosSwap } from 'react-icons/io';
 import serviceStation from "@/apis/service/station";
 import PrimaryButton from "@/components/Button/PrimaryButton";
 import {
@@ -13,7 +11,7 @@ import {
     Select,
 } from "@chakra-ui/react";
 import moment from "moment";
-import { useState} from "react";
+import {useState} from "react";
 import {IoIosRadioButtonOn, IoIosSearch, IoIosSwap} from "react-icons/io";
 import {MdLocationPin} from "react-icons/md";
 import {useQuery} from "@tanstack/react-query";
@@ -55,105 +53,102 @@ export default function SearchTrip(
     }
 
     return (
-        <>
-            <Grid templateColumns={'repeat(2, 1fr)'} mt={3} gap={3}>
-                <GridItem
-                    colSpan={{
-                        base: 2,
-                        md: 1,
-                    }}
-                    display={'flex'}
-                    alignItems={'center'}
-                    gap={3}
-                >
-                    <FormControl>
-                        <FormLabel mb="1" fontSize="sm" color="gray.600">
-                            Điểm đi
-                        </FormLabel>
-                        <Box display="flex" alignItems="center" borderWidth="1px" borderRadius="md" paddingLeft={3}
-                             width="100%">
-                            <Icon as={IoIosRadioButtonOn} color="gray.500"/>
-                            <Select
-                                border="none"
-                                _focus={{boxShadow: "none"}}
-                                value={searchParams.startStationId}
-                                onChange={(e) => {
-                                    setSearchParams({
-                                        ...searchParams,
-                                        startStationId: e.target.value,
-                                    });
-                                }}
-                            >
-                                <option value="" disabled style={{color: 'gray'}}>Chọn điểm đi</option>
-                                {listStationData?.contents?.map((station: any) => (
-                                    <option key={station.id} value={station.id.toString()}>
-                                        {station.name}
-                                    </option>
-                                ))}
-                            </Select>
-                        </Box>
-                    </FormControl>
-                    <Box mx={2} display="flex" alignSelf="center" mt="6" justifyContent="center">
-                        <IoIosSwap size={24}/>
-                    </Box>
-                    <FormControl>
-                        <FormLabel mb="1" fontSize="sm" color="gray.600">
-                            Điểm đến
-                        </FormLabel>
-                        <Box display="flex" alignItems="center" borderWidth="1px" borderRadius="md" paddingLeft={3}
-                             width="100%">
-                            <Icon as={MdLocationPin} color="gray.500"/>
-                            <Select
-                                border="none"
-                                _focus={{boxShadow: "none"}}
-                                value={searchParams.endStationId}
-                                onChange={(e) => {
-                                    setSearchParams({
-                                        ...searchParams,
-                                        endStationId: e.target.value,
-                                    });
-                                }}
-                            >
-                                <option value="" disabled style={{color: 'gray'}}>Chọn điểm đến</option>
-                                {listStationData?.contents?.map((station: any) => (
-                                    <option key={station.id} value={station.id}>
-                                        {station.name}
-                                    </option>
-                                ))}
-                            </Select>
-                        </Box>
-                    </FormControl>
-                </GridItem>
-                <GridItem
-                    colSpan={{
-                        base: 2,
-                        md: 1,
-                    }}
-                    display={'flex'}
-                    alignItems={'center'}
-                    gap={3}
-                >
-                    <FormControl flex="1">
-                        <FormLabel mb="1" fontSize="sm" color="gray.600">
-                            Ngày đi
-                        </FormLabel>
-                        <Input
-                            type="date"
-                            value={searchParams.date}
+        <Grid templateColumns={'repeat(2, 1fr)'} mt={3} gap={3}>
+            <GridItem
+                colSpan={{
+                    base: 2,
+                    md: 1,
+                }}
+                display={'flex'}
+                alignItems={'center'}
+                gap={3}
+            >
+                <FormControl>
+                    <FormLabel mb="1" fontSize="sm" color="gray.600">
+                        Điểm đi
+                    </FormLabel>
+                    <Box display="flex" alignItems="center" borderWidth="1px" borderRadius="md" paddingLeft={3}
+                         width="100%">
+                        <Icon as={IoIosRadioButtonOn} color="gray.500"/>
+                        <Select
+                            border="none"
+                            _focus={{boxShadow: "none"}}
+                            value={searchParams.startStationId}
                             onChange={(e) => {
                                 setSearchParams({
                                     ...searchParams,
-                                    date: e.target.value,
+                                    startStationId: e.target.value,
                                 });
                             }}
-                        />
-                    </FormControl>
-                    <PrimaryButton leftIcon={<IoIosSearch/>} alignSelf="flex-end" mt="6" onClick={handleSearch}>
-                        Tìm kiếm
-                    </PrimaryButton>
-                </GridItem>
-            </Grid>
-
-        </>
-    );
-}
+                        >
+                            <option value="" disabled style={{color: 'gray'}}>Chọn điểm đi</option>
+                            {listStationData?.contents?.map((station: any) => (
+                                <option key={station.id} value={station.id.toString()}>
+                                    {station.name}
+                                </option>
+                            ))}
+                        </Select>
+                    </Box>
+                </FormControl>
+                <Box mx={2} display="flex" alignSelf="center" mt="6" justifyContent="center">
+                    <IoIosSwap size={24}/>
+                </Box>
+                <FormControl>
+                    <FormLabel mb="1" fontSize="sm" color="gray.600">
+                        Điểm đến
+                    </FormLabel>
+                    <Box display="flex" alignItems="center" borderWidth="1px" borderRadius="md" paddingLeft={3}
+                         width="100%">
+                        <Icon as={MdLocationPin} color="gray.500"/>
+                        <Select
+                            border="none"
+                            _focus={{boxShadow: "none"}}
+                            value={searchParams.endStationId}
+                            onChange={(e) => {
+                                setSearchParams({
+                                    ...searchParams,
+                                    endStationId: e.target.value,
+                                });
+                            }}
+                        >
+                            <option value="" disabled style={{color: 'gray'}}>Chọn điểm đến</option>
+                            {listStationData?.contents?.map((station: any) => (
+                                <option key={station.id} value={station.id}>
+                                    {station.name}
+                                </option>
+                            ))}
+                        </Select>
+                    </Box>
+                </FormControl>
+            </GridItem>
+            <GridItem
+                colSpan={{
+                    base: 2,
+                    md: 1,
+                }}
+                display={'flex'}
+                alignItems={'center'}
+                gap={3}
+            >
+                <FormControl flex="1">
+                    <FormLabel mb="1" fontSize="sm" color="gray.600">
+                        Ngày đi
+                    </FormLabel>
+                    <Input
+                        type="date"
+                        value={searchParams.date}
+                        onChange={(e) => {
+                            setSearchParams({
+                                ...searchParams,
+                                date: e.target.value,
+                            });
+                        }}
+                    />
+                </FormControl>
+                <PrimaryButton leftIcon={<IoIosSearch/>} alignSelf="flex-end" mt="6" onClick={handleSearch}>
+                    Tìm kiếm
+                </PrimaryButton>
+            </GridItem>
+        </Grid>
+    )
+};

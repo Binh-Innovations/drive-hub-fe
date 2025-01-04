@@ -1,8 +1,30 @@
-import { Box, Flex, Text, VStack,  Alert, AlertIcon, Icon } from '@chakra-ui/react';
-import { FaCarSide } from "react-icons/fa";
-// Divider,
+import {Box, Flex, Text, VStack, Alert, AlertIcon} from '@chakra-ui/react';
+import {useQuery} from '@tanstack/react-query';
+import {FaCarSide} from "react-icons/fa";
+import serviceRoute from "@/apis/service/route.ts";
+import moment from "moment";
+import {getTimeDiff} from "@/utils";
+import {VEHICLE_TYPES} from "@/constants/data.ts";
 
-export default function TripSummary() {
+export default function TripSummary({tripDetail}: { tripDetail: any }) {
+    const {
+        data: routeData = {}
+    } = useQuery({
+        queryKey: ['route', tripDetail?.routeId],
+        queryFn: async ({queryKey}) => {
+            const [, _routeId] = queryKey
+            if (!_routeId) return
+            return await serviceRoute.getRouteById(_routeId)
+        },
+        enabled: !!tripDetail?.routeId
+    })
+
+    const vehicleText =
+        VEHICLE_TYPES.find((type) => type.value === tripDetail?.vehicle?.vehicleType)?.label +
+        ' ' +
+        (tripDetail?.vehicle?.seatColumns * tripDetail?.vehicle?.seatRows) +
+        ' chỗ';
+
     return (
         <Box
             width="100%"
@@ -20,54 +42,101 @@ export default function TripSummary() {
             </Text>
 
             {/* Trip Details Section */}
-            <Box bg="#FFF5EB" p={4} borderRadius="md" mb={6}>
-                <Flex justifyContent="space-between" alignItems="center">
-                    {/* From Location */}
-                    <VStack align="start" spacing={1}>
-                        <Text fontSize="xl" fontWeight="bold">Hà Nam</Text>
-                        <Text fontSize="lg">14:50</Text>
-                        <Text fontSize="sm">T5, 14-11-2024</Text>
-                        <Text fontSize="sm">Bến xe thành phố Hà Nam</Text>
-                        {/* <Text fontSize="sm">Terminal - 2, Gate - 25</Text> */}
-                    </VStack>
-
-                    {/* Icon and Duration */}
-                    <VStack spacing={1} textAlign="center">
-                        <Text fontSize="sm" color="gray.600">2hr 30min</Text>
-                        <Flex alignItems="center">
-                            <Box width="50px" height="1px" bgColor="gray.300" />
-                            <Icon as={FaCarSide} w={6} h={6} mx={2} color="gray.500" />
-                            <Box width="50px" height="1px" bgColor="gray.300" />
-                        </Flex>
-                    </VStack>
-
-                    {/* To Location */}
-                    <VStack align="end" spacing={1}>
-                        <Text fontSize="xl" fontWeight="bold">Hà Nội</Text>
-                        <Text fontSize="lg">17:20</Text>
-                        <Text fontSize="sm">T5, 14-11-2024</Text>
-                        <Text fontSize="sm">Bến Xe Mỹ Đình</Text>
-                        {/* <Text fontSize="sm">Terminal - 2, Gate - 25</Text> */}
-                    </VStack>
+            <Flex
+                bg="#FFF5EB"
+                p={3}
+                borderRadius="md"
+                mb={6}
+                alignItems={'center'}
+            >
+                {/* From Location */}
+                <Flex
+                    flexDirection={'column'}
+                    alignItems={'flex-start'}
+                    width={'35%'}>
+                    <Text fontSize="xl" fontWeight="bold">
+                        {routeData?.startStation?.name}
+                    </Text>
+                    <Text fontSize="lg">
+                        {moment(tripDetail?.departureTime).format('HH:mm')}
+                    </Text>
+                    <Text fontSize="sm">
+                        {moment(tripDetail?.departureTime).format('DD-MM-YYYY')}
+                    </Text>
+                    <Text fontSize="sm">
+                        {routeData?.startStation?.address}
+                    </Text>
                 </Flex>
 
-                {/* <Divider my={4} /> */}
+                {/* Icon and Duration */}
+                <Box
+                    textAlign={'center'}
+                    width={'30%'}>
+                    <Text fontSize="sm" color="gray.600">
+                        {getTimeDiff(tripDetail?.departureTime, tripDetail?.arrivalTime)}
+                    </Text>
 
-            </Box>
+                    <Flex justifyContent={'space-between'} gap={1} alignItems={'center'}>
+                        <Box
+                            width={'40%'}
+                            height={'1px'}
+                            bgColor={'gray.300'}
+                        />
+                        <FaCarSide
+                            size={20}
 
-            {/* Tổng cộng Section */}
+                            color='gray'
+                        />
+                        <Box
+                            width={'40%'}
+                            height={'1px'}
+                            bgColor={'gray.300'}
+                        />
+                    </Flex>
+                    <Text variant={'body-tiny'}>
+                        {vehicleText}
+                    </Text>
+                </Box>
+
+                {/* To Location */}
+                <Flex
+                    flexDirection={'column'}
+                    alignItems={'flex-end'}
+                    width={'35%'}>
+                    <Text fontSize="xl" fontWeight="bold">
+                        {routeData?.endStation?.name}
+                    </Text>
+                    <Text fontSize="lg">
+                        {moment(tripDetail?.arrivalTime).format('HH:mm')}
+                    </Text>
+                    <Text fontSize="sm">
+                        {moment(tripDetail?.arrivalTime).format('DD-MM-YYYY')}
+                    </Text>
+                    <Text fontSize="sm">
+                        {routeData?.endStation?.address}
+                    </Text>
+                    {/* <Text fontSize="sm">Terminal - 2, Gate - 25</Text> */}
+                </Flex>
+            </Flex>
+
+            {/* Tổng cộng Section */
+            }
             <Flex justifyContent="space-between" alignItems="center" mb={4}>
                 <VStack align="start" spacing={1}>
-                    <Text fontWeight="bold" fontSize="lg">Tổng Cộng</Text>
-                    <Text fontSize="2xl" fontWeight="bold" color="purple.600">100.000 VND</Text>
+                    <Text fontWeight="bold" fontSize="lg">Giá vé</Text>
+                    <Text fontSize="2xl" fontWeight="bold" color="purple.600">
+                        {tripDetail?.price?.toLocaleString('vi-VN')} VND
+                    </Text>
                 </VStack>
             </Flex>
 
-            {/* Warning Section */}
+            {/* Warning Section */
+            }
             <Alert status="info" variant="left-accent" borderRadius="md">
-                <AlertIcon />
+                <AlertIcon/>
                 Khuyến cáo khách hàng không mang theo vật phẩm có mùi theo hành lý như mắm, sầu riêng,...
             </Alert>
         </Box>
-    );
+    )
+        ;
 }

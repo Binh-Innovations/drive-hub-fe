@@ -1,6 +1,5 @@
 import "./index.css";
 import {Form, Input, Image} from "antd";
-import {useTranslation} from "react-i18next";
 import {Link, useNavigate} from "react-router-dom";
 import toast from "react-hot-toast";
 import {isEmail} from "@/utils";
@@ -8,18 +7,19 @@ import {JWT_LOCAL_STORAGE_KEY} from "@/constants/data.ts";
 import userService from "@/apis/service/userService";
 import { AxiosError } from 'axios';
 import { PrimaryButton } from "@/components";
+import useUserInfo from "@/hooks/useUserInfo.ts";
 
 const Login = () => {
 	const [form] = Form.useForm();
-	const {t} = useTranslation()
 	const navigate = useNavigate()
+	const {setUserInfo} = useUserInfo()
 	const handleLogin = async (values: {email: string, password: string}) => {
 		const { email, password } = values;
 		if (!isEmail(email)) {
 			form.setFields([
 				{
 					name: 'email',
-					errors: [t('The input is not valid E-mail!')],
+					errors: [('The input is not valid E-mail!')],
 				}
 			]);
 			return;
@@ -27,11 +27,12 @@ const Login = () => {
 		
 		try {
 			const response = await userService.login(email, password);
-			localStorage.setItem(JWT_LOCAL_STORAGE_KEY, response?.token);
-			toast.success(t('Login successfully!'));
+			localStorage.setItem(JWT_LOCAL_STORAGE_KEY, response?.jwt);
+			setUserInfo(response?.user);
+			toast.success(('Đăng nhập thành công!'));
 			navigate('/');
 		} catch (error) {
-			const errorMessage = (error as AxiosError<{ message: string }>)?.response?.data?.message || t('Login failed!');
+			const errorMessage = (error as AxiosError<{ message: string }>)?.response?.data?.message || ('Đăng nhập thất bại!');
 			toast.error(errorMessage);
 		}
 	}
@@ -47,8 +48,10 @@ const Login = () => {
 							className={'rounded-full'}
 						/>
 					</div>
-					<div className="auth-title">{t('Welcome')}</div>
-					<p className="auth-description">{t("Login with your account to continue!")}</p>
+					<div className="auth-title">{('Xin chào')}</div>
+					<p className="auth-description">
+						Đăng nhập để tiếp tục
+					</p>
 				</div>
 				<Form
 					form={form}
@@ -60,24 +63,24 @@ const Login = () => {
 						style={{
 							marginBottom: "2.5rem",
 						}}
-						label={<span className="text-base font-medium">{t("Email")}</span>}
+						label={<span className="text-base font-medium">{("Email")}</span>}
 						name="email"
 						rules={[
-							{required: true, message: t("Please input your email!")},
+							{required: true, message: "Vui lòng nhập email!"},
 						]}
 					>
-						<Input placeholder={t("Email")} className="auth-form-input border-black"/>
+						<Input placeholder={("Email")} className="auth-form-input border-black"/>
 					</Form.Item>
 					
 					<Form.Item
-						label={<span className="text-base font-medium">{t("Password")}</span>}
+						label={<span className="text-base font-medium">{("Mật khẩu")}</span>}
 						name="password"
 						rules={[
-							{required: true, message: t("Please input your password!")},
+							{required: true, message: "Vui lòng nhập mật khẩu!"},
 						]}
 					>
 						<Input.Password
-							placeholder={t("Password")}
+							placeholder={("Mật khẩu")}
 							className="auth-form-input border-black"
 						/>
 					</Form.Item>
@@ -91,12 +94,14 @@ const Login = () => {
 					className="auth-btn bg-black mt-3"
 					size="large"
 				>
-					{t("Login")}
+					{("Đăng nhập")}
 				</PrimaryButton>
 				<div className={'mt-3 text-center'}>
-					<span className={'text-sm'}>{t("Don't have an account?")}</span>
+					<span className={'text-sm'}>
+						{("Chưa có tài khoản?")}
+					</span>
 					<Link to={'/register'} className={'text-blue-500 text-sm'}>
-						{t(" Register")}
+						{("Đăng ký")}
 					</Link>
 				</div>
 			</div>

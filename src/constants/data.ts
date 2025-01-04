@@ -1,5 +1,7 @@
 export const JWT_LOCAL_STORAGE_KEY = 'drive-hub-fe-jwt-token'
 
+
+export const TRIP_ID = 'tripId'
 export const LIST_HEADER_MENU = [
     {
         label: "Trips",
@@ -17,7 +19,26 @@ export const LIST_HEADER_MENU = [
         label: "Contact",
         url: "/contact",
     },
-]; 
+];
+
+export const VEHICLE_TYPES = [
+    {
+        label: 'Ghế ngồi',
+        value: '1'
+    },
+    {
+        label: 'Giường nằm',
+        value: '2'
+    },
+    {
+        label: 'Ghế ngồi limousine',
+        value: '3'
+    },
+    {
+        label: 'Giường nằm limousine',
+        value: '4'
+    }
+]
 
 export const HOME_ITEM_DATA = [
     {

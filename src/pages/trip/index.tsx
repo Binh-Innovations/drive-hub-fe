@@ -46,7 +46,6 @@ export default function Trip() {
         })
     }
 
-
     return (
         <Flex flexDirection="column" paddingBottom="50px">
             <Box

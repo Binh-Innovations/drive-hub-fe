@@ -14,7 +14,7 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(async (config) => {
 	// Handle token here ...
 	// get access token from async storage
-	const accessToken = window.localStorage.getItem(JWT_LOCAL_STORAGE_KEY);
+	const accessToken = localStorage.getItem(JWT_LOCAL_STORAGE_KEY);
 	
 	if (accessToken) {
 		config.headers.Authorization = `Bearer ${accessToken}`;

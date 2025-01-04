@@ -8,6 +8,10 @@ const serviceTrip = {
                 status: "scheduled"
             }
         })
+    },
+
+    getTripById: async (id: string): Promise<any> => {
+        return await axiosClient.get(`/trip/${id}`)
     }
 }
 export default serviceTrip

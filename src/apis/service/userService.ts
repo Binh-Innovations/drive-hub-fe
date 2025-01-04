@@ -9,7 +9,11 @@ const userService = {
 	
 	register: async (email: string, password: string): Promise<any> => {
 		return await axiosClient.post("/auth/register", { email, password });
-	}
+	},
+
+	getUserInfo: async (): Promise<any> => {
+		return await axiosClient.get("/auth/me");
+	},
 }
 
 export default userService;
