@@ -1,16 +1,7 @@
-import axios from "axios"
+import axiosClient from "@/apis/config/axiosClient.ts";
 const serviceStation = {
-    getAllStation: async (page: number=0, limit: number=100): Promise<any>=> {
-        const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/station/`,{
-                params: {
-                    page, 
-                    limit,
-                }
-            }
-        )
-        // console.log('response.data-----', response.data)
-        return response.data
+    getAllStation: async (query: any = {}): Promise<any> => {
+        return await axiosClient.get("/station", {params: query})
     }
 }
 export default serviceStation

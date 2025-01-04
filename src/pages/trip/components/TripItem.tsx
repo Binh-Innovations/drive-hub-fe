@@ -1,14 +1,10 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
-import { PrimaryButton } from '@/components';
-import { FaCarSide } from "react-icons/fa";
+import {Box, Flex, Text} from '@chakra-ui/react';
+import {PrimaryButton} from '@/components';
+import {FaCarSide} from "react-icons/fa";
+import moment from "moment";
+import {getTimeDiff} from "@/utils";
 
-export default function TripItem({item  }:{item: any}) {
-
-    console.log("TripItem props:", item);
-
-
-
-
+export default function TripItem({item}: { item: any }) {
     return (
         <Box
             backgroundColor={'white'}
@@ -32,22 +28,31 @@ export default function TripItem({item  }:{item: any}) {
                     bgColor={'secondary.50'}
                     padding={'10px'}
                 >
-                    <Text variant={'body-tiny'}>
-                        20/11/2024
-                    </Text>
                     <Flex justifyContent={'space-between'}>
-                        <Box>
+                        <Text variant={'body-tiny'}>
+                            {moment(item?.departureTime).format('DD/MM/YYYY') ?? ''}
+                        </Text>
+
+                        <Text variant={'body-tiny'}>
+                            {moment(item?.arrivalTime).format('DD/MM/YYYY') ?? ''}
+                        </Text>
+                    </Flex>
+                    <Flex justifyContent={'space-between'}>
+                        <Flex
+                            flexDirection={'column'}
+                            alignItems={'flex-start'}
+                        >
                             <Text variant={'body-large-bold'}>
-                                14.50
+                                {moment(item?.departureTime).format('HH:mm') ?? ''}
                             </Text>
                             <Text variant={'body-tiny'}>
 
-                                {item.startStation.name ?? ''}
+                                {item?.route?.startStation?.name ?? ''}
                             </Text>
-                        </Box>
+                        </Flex>
                         <Box>
                             <Text variant={'body-small-bold'} padding={'0 20px'}>
-                                2 giờ 30 phút
+                                {getTimeDiff(item?.departureTime, item?.arrivalTime)}
                             </Text>
                             <Flex justifyContent={'space-between'} gap={1} alignItems={'center'}>
                                 <Box
@@ -67,15 +72,17 @@ export default function TripItem({item  }:{item: any}) {
                                 />
                             </Flex>
                         </Box>
-                        <Box>
+                        <Flex
+                            flexDirection={'column'}
+                            alignItems={'flex-end'}
+                        >
                             <Text variant={'body-large-bold'}>
-                                17.20
+                                {moment(item?.arrivalTime).format('HH:mm') ?? ''}
                             </Text>
                             <Text variant={'body-tiny'}>
-
-                            {item.endStation.name ?? ''}
+                                {item?.route?.endStation.name ?? ''}
                             </Text>
-                        </Box>
+                        </Flex>
                     </Flex>
                 </Box>
                 <Flex

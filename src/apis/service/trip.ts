@@ -1,20 +1,13 @@
-import axios from "axios"
+import axiosClient from "@/apis/config/axiosClient.ts";
+
 const serviceTrip = {
-    getAllTrip: async (page: number=0, limit: number=10, startStationId?: number, endStationId?: number, startTime?: string, endTime?: string ): Promise<any>=> {
-        const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/trip/`,{
-                params: {
-                    page, 
-                    limit,
-                    startStationId,
-                    endStationId,
-                    startTime,
-                    endTime
-                }
+    getAllTrip: async (query: any = {}): Promise<any> => {
+        return await axiosClient.get("/trip", {
+            params: {
+                ...query,
+                status: "scheduled"
             }
-        )
-        // console.log('response.data-----', response.data)
-        return response.data
+        })
     }
 }
 export default serviceTrip
