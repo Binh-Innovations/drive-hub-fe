@@ -6,6 +6,10 @@ const serviceTicket = {
 
     bookTicket: async (data: any): Promise<any> => {
         return await axiosClient.post('/ticket/book/online', data)
+    },
+
+    getMyTickets: async (query: any): Promise<any> => {
+        return await axiosClient.get('/ticket/my-tickets', { params: query })
     }
 }
 

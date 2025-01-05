@@ -1,4 +1,4 @@
-import {JWT_LOCAL_STORAGE_KEY, LIST_HEADER_MENU} from "@/constants/data";
+import {JWT_LOCAL_STORAGE_KEY} from "@/constants/data";
 import {Flex, Image, Text} from "@chakra-ui/react";
 import {Link} from "react-router-dom";
 import PrimaryButton from "../Button/PrimaryButton";
@@ -15,15 +15,20 @@ const Header = () => {
     }
     return (
         <header className="w-full h-16 px-4 shadow-xl flex justify-between items-center">
-            <Flex alignItems={"center"} gap={2}>
-                <Image
-                    width={10}
-                    height={10}
-                    className={"object-cover rounded-xl"}
-                    src="/logo.jpg"
-                />
-                <Text>DRIVE HUB</Text>
-            </Flex>
+            <Link to={'/'}>
+                <Flex
+                    alignItems={"center"}
+                    gap={2}
+                >
+                    <Image
+                        width={10}
+                        height={10}
+                        className={"object-cover rounded-xl"}
+                        src="/logo.jpg"
+                    />
+                    <Text>DRIVE HUB</Text>
+                </Flex>
+            </Link>
             <Flex
                 gap={5}
                 display={{
@@ -31,13 +36,13 @@ const Header = () => {
                     md: "flex",
                 }}
             >
-                {LIST_HEADER_MENU.map((item: any) => {
-                    return (
-                        <Link to={item.url} key={item.label}>
-                            <Text variant={"body-default"}>{item.label}</Text>
-                        </Link>
-                    );
-                })}
+                {/*{LIST_HEADER_MENU.map((item: any) => {*/}
+                {/*    return (*/}
+                {/*        <Link to={item.url} key={item.label}>*/}
+                {/*            <Text variant={"body-default"}>{item.label}</Text>*/}
+                {/*        </Link>*/}
+                {/*    );*/}
+                {/*})}*/}
             </Flex>
             {
                 userInfo ? (
@@ -46,10 +51,6 @@ const Header = () => {
                             userInfo={userInfo}
                             onLogout={handleLogout}
                         />
-                        {/*<Text variant={'body-default'}>{userInfo?.email}</Text>*/}
-                        {/*<PrimaryButton>*/}
-                        {/*    Đăng xuất*/}
-                        {/*</PrimaryButton>*/}
                     </Flex>
                 ) : (
                     <Flex gap={2} alignItems={'center'}>

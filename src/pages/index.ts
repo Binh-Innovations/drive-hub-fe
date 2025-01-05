@@ -8,3 +8,5 @@ export {default as RegisterPage} from "@/pages/auth/Register";
 export {default as TicketDetailPage} from './tickets/TicketDetailPage';
 export {default as TicketHistoryPage} from './tickets/TicketHistoryPage';
 export {default as PaymentSuccessPage} from "@/pages/payment/success";
+export {default as ProfilePage} from "@/pages/user/Profile";
+export {default as TicketPage} from "@/pages/user/my-ticket";

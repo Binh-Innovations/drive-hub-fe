@@ -14,6 +14,14 @@ const userService = {
 	getUserInfo: async (): Promise<any> => {
 		return await axiosClient.get("/auth/me");
 	},
+
+	updateUser: async (data: any): Promise<any> => {
+		return await axiosClient.put("/auth/user/update-user", data);
+	},
+
+	changePassword: async (data: any): Promise<any> => {
+		return await axiosClient.put("/auth/user/change-password", data);
+	},
 }
 
 export default userService;

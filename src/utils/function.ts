@@ -19,3 +19,20 @@ export function formatObject(obj: any) {
 
 	return cleanedObj;
 }
+
+export const formatDateTime = (dateStr: string) => {
+	return new Date(dateStr).toLocaleString('vi-VN', {
+		day: '2-digit',
+		month: '2-digit',
+		year: 'numeric',
+		hour: '2-digit',
+		minute: '2-digit'
+	});
+};
+
+export const formatPrice = (price: number) => {
+	return new Intl.NumberFormat('vi-VN', {
+		style: 'currency',
+		currency: 'VND'
+	}).format(price);
+};

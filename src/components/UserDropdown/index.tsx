@@ -1,6 +1,8 @@
-import { UserOutlined, SettingOutlined, LogoutOutlined } from '@ant-design/icons';
+import { UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import { Avatar, Dropdown, MenuProps } from 'antd';
 import { Flex } from '@chakra-ui/react';
+import {useNavigate} from "react-router-dom";
+import {FaTicketAlt} from "react-icons/fa";
 
 interface UserDropdownProps {
     userInfo: {
@@ -12,6 +14,7 @@ interface UserDropdownProps {
 }
 
 const UserDropdown: React.FC<UserDropdownProps> = ({ userInfo, onLogout }) => {
+    const navigate = useNavigate();
     const menuItems: MenuProps['items'] = [
         {
             key: 'userInfo',
@@ -32,9 +35,9 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ userInfo, onLogout }) => {
             icon: <UserOutlined />,
         },
         {
-            key: 'settings',
-            label: 'Cài đặt',
-            icon: <SettingOutlined />,
+            key: 'my-tickets',
+            label: 'Vé của tôi',
+            icon: <FaTicketAlt />,
         },
         {
             type: 'divider',
@@ -52,8 +55,12 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ userInfo, onLogout }) => {
             onLogout();
         }
         // Xử lý các menu item khác
-        // if (e.key === 'profile') { ... }
-        // if (e.key === 'settings') { ... }
+        if (e.key === 'profile') {
+            navigate('/profile');
+        }
+        if (e.key === 'my-tickets') {
+            navigate('/my-ticket');
+        }
     };
 
     return (

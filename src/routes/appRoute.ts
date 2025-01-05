@@ -1,4 +1,15 @@
-import { HomePage, TripPage, BookingDetailsPage, Payment, LoginPage, RegisterPage, TicketDetailPage, TicketHistoryPage, PaymentSuccessPage} from '@/pages';
+import {
+	HomePage,
+	TripPage,
+	BookingDetailsPage,
+	Payment,
+	LoginPage,
+	RegisterPage,
+	TicketDetailPage,
+	TicketHistoryPage,
+	PaymentSuccessPage,
+	ProfilePage, TicketPage
+} from '@/pages';
 
 
 
@@ -30,6 +41,14 @@ const appRoute = {
 	paymentSuccess: {
 		path: '/payment/success',
 		component: PaymentSuccessPage,
+	},
+	profile: {
+		path: '/profile',
+		component: ProfilePage,
+	},
+	myTicket: {
+		path: '/my-ticket',
+		component: TicketPage,
 	}
 	
 };

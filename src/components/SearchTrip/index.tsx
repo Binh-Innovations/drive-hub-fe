@@ -10,7 +10,6 @@ import {
     Input,
     Select,
 } from "@chakra-ui/react";
-import moment from "moment";
 import {useState} from "react";
 import {IoIosRadioButtonOn, IoIosSearch, IoIosSwap} from "react-icons/io";
 import {MdLocationPin} from "react-icons/md";
@@ -33,7 +32,7 @@ export default function SearchTrip(
     const [searchParams, setSearchParams] = useState({
         startStationId: defaultSearchParams?.startStationId || '',
         endStationId: defaultSearchParams?.endStationId || '',
-        date: defaultSearchParams?.date || moment().format('YYYY-MM-DD'),
+        date: defaultSearchParams?.date || '',
     })
 
     const {
@@ -67,8 +66,14 @@ export default function SearchTrip(
                     <FormLabel mb="1" fontSize="sm" color="gray.600">
                         Điểm đi
                     </FormLabel>
-                    <Box display="flex" alignItems="center" borderWidth="1px" borderRadius="md" paddingLeft={3}
-                         width="100%">
+                    <Box
+                        display="flex"
+                        alignItems="center"
+                        borderWidth="1px"
+                        borderRadius="md"
+                        width="100%"
+                        paddingLeft={3}
+                    >
                         <Icon as={IoIosRadioButtonOn} color="gray.500"/>
                         <Select
                             border="none"
