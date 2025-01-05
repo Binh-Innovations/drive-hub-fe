@@ -20,7 +20,7 @@ const Index = () => {
             paddingBottom={'4rem'}
         >
             <Box
-                backgroundImage={'https://vivutoday.com/wp-content/uploads/2023/07/vivutoday-home-banner.jpg'}
+                backgroundImage={'https://static.vexere.com/production/banners/1209/leaderboard.png'}
                 backgroundSize={'cover'}
                 backgroundPosition={'center'}
                 backgroundRepeat={'no-repeat'}
