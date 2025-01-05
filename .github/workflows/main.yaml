@@ -1,0 +1,16 @@
+name: deploy-drive-hub-fe
+
+on:
+  push:
+    branches: main
+
+jobs:
+  drive-hub-fe:
+    runs-on: Binh-Innovations
+    steps:
+      - run: |
+          cd /home/ducbinh/drive-hub-fe
+          git pull origin master
+          npm install --no-audit
+          npm run build
+          pm2 restart fynspace-fe.sh
