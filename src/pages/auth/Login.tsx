@@ -86,7 +86,7 @@ const Login = () => {
 					</Form.Item>
 				</Form>
 				<Link to={'/forgot-password'} className={'text-sm'}>
-					Forgot password?
+					Quên mật khẩu?
 				</Link>
 				<PrimaryButton
 					type="submit"

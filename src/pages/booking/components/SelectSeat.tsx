@@ -21,9 +21,9 @@ const getSeatTooltip = (seat: Seat): string => {
     switch (seat.status) {
         case 'available':
             return 'Ghế trống - Nhấn để chọn';
-        case 'booked':
-            return 'Ghế đã được đặt';
         case 'active':
+            return 'Ghế đã được đặt';
+        case 'booked':
             return 'Ghế đang được chọn';
         default:
             return '';
@@ -72,8 +72,8 @@ const SelectSeatPage: React.FC<{
 
     const legendItems: LegendItem[] = [
         {status: 'available', label: 'Ghế trống', color: '#ffffff'},
-        {status: 'booked', label: 'Đã đặt', color: '#ccc'},
-        {status: 'active', label: 'Đang chọn', color: '#ff4d4f'},
+        {status: 'active', label: 'Đã đặt', color: '#ccc'},
+        {status: 'booked', label: 'Đang chọn', color: '#ff4d4f'},
     ];
 
     const createSeatGrid = () => {
