@@ -103,7 +103,7 @@ const PaymentSuccess: React.FC<PaymentSuccessProps> = ({ orderInfo }) => {
                             colorScheme="green"
                             size="lg"
                             width="full"
-                            onClick={() => navigate('/tickets')}
+                            onClick={() => navigate('/my-ticket')}
                         >
                             Xem vé của tôi
                         </Button>
